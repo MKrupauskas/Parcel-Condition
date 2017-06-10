@@ -11,28 +11,43 @@
   <script src="oauth.js"></script>
 
   <!-- this line removes any default padding and style. you might only need one of these values set. -->
-  <style> body {padding-left: 0; margin-right: 0; padding-right: 0; margin-left: 0;}
+  <style>
 
-  .location {
-    padding-top: 0.5em;
+  html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: #ed7044;
   }
-  h1 {
+
+  h1, h3, h2 {
     font-family: 'Overpass', sans-serif;
     padding-left: 0.2em;
     padding-top: 0.2em;
     color: #fff;
   }
+  a[href^="http://maps.google.com/maps"]{display:none !important}
+  a[href^="https://maps.google.com/maps"]{display:none !important}
 
+  .gmnoprint a, .gmnoprint span, .gm-style-cc {
+    display:none;
+  }
+  .gmnoprint div {
+    background:none !important;
+  }
   </style>
 </head>
 <body>
-  <div  id="location" style="width:100%;height:50px;background:	#FB926D;">
+  <div style="width:100%;height:50px;background:	#FB926D;">
     <h1>Your Parcels' Location</h1>
   </div>
   <div id="googleMap" style="width:100%;height:400px;"></div>
-  <div style="width:100%;height:50px;background:	#FB926D;">
+  <div id="condition" style="width:100%;height:50px;background:	#FB926D;">
     <h1>Your Parcels' Condition</h1>
   </div>
+  <div id="conditions" style="width:100%;height:400px;background: #fff;">
+  </div>
+  <h3 style="text-align: center;position: relative; top: 55px;">Telia IoT hackathon 2017</h3>
 
   <script>
   // OAuth.initialize('Khtcm8GGKuezCJE1qU6ED7y9p');
@@ -140,14 +155,15 @@
   function myMap() {
   mapProp= {
       center:new google.maps.LatLng(coordLat, coordLng),
-      zoom:18,
+      zoom:17,
       panControl: false,
       zoomControl: false,
       mapTypeControl: true,
       scaleControl: false,
       streetViewControl: false,
       overviewMapControl: false,
-      rotateControl: false
+      rotateControl: false,
+      styles: [{"featureType":"administrative","elementType":"all","stylers":[{"saturation":"-100"}]},{"featureType":"administrative.province","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"landscape","elementType":"all","stylers":[{"saturation":-100},{"lightness":65},{"visibility":"on"}]},{"featureType":"poi","elementType":"all","stylers":[{"saturation":-100},{"lightness":"50"},{"visibility":"simplified"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":"-100"}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.arterial","elementType":"all","stylers":[{"lightness":"30"}]},{"featureType":"road.local","elementType":"all","stylers":[{"lightness":"40"}]},{"featureType":"transit","elementType":"all","stylers":[{"saturation":-100},{"visibility":"simplified"}]},{"featureType":"water","elementType":"geometry","stylers":[{"hue":"#ffff00"},{"lightness":-25},{"saturation":-97}]},{"featureType":"water","elementType":"labels","stylers":[{"lightness":-25},{"saturation":-50}]}]
   };
   map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
   marker = new google.maps.Marker({position: mapProp.center, icon: "test.png"});
