@@ -8,13 +8,11 @@
   <!--<script language="javascript" src="libraries/p5.sound.js"></script>-->
   <script language="javascript" type="text/javascript" src="sketch.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="oauth.js"></script>
 
   <!-- this line removes any default padding and style. you might only need one of these values set. -->
   <style>
 
   html, body {
-        height: 100%;
         margin: 0;
         padding: 0;
         background-color: #ed7044;
@@ -39,142 +37,26 @@
 </head>
 <body>
   <div style="width:100%;height:50px;background:	#FB926D;">
-    <h1>Your Package // Location</h1>
-  </div>
-  <div id="googleMap" style="width:100%;height:400px;"></div>
-  <div id="condition" style="width:100%;height:50px;background:	#FB926D;">
-    <h1>Your Package // Condition</h1>
-  </div>
-  <div id="conditions" style="width:100%;height:400px;background: #fff;">
-  </div>
-  <h3 style="text-align: center;position: relative; top: 55px;">Telia IoT hackathon 2017</h3>
+  <h1>Your Package // Location</h1>
+</div>
+<div id="googleMap" style="width:100%;height:400px;"></div>
+<div id="condition" style="width:100%;height:50px;background:	#FB926D;">
+  <h1>Your Package // Condition</h1>
+</div>
+<div id="canvasDiv" style="width:100%;height:400px;">
+   <canvas id="canvas" style="width:100%;height:400px;"></canvas>
+</div>
+<h3 style="text-align: center;position: relative; top: 55px;">Telia IoT hackathon 2017</h3>
 
   <script>
-  // OAuth.initialize('Khtcm8GGKuezCJE1qU6ED7y9p');
-  // var clientId = "MyApp";
-  // var clientSecret = "MySecret";
-  //
-  // var authorizationBasic = (clientId + ':' + clientSecret);
-  //
-  // $.ajax({
-  //     type: 'POST',
-  //     url: oAuth.AuthorizationServer,
-  //     data: { username: 'Parcel_Condition', password: 'iot101', grant_type: 'password' },
-  //     dataType: "json",
-  //     contentType: 'https://www.emcom.eu/api/v1/device/3975/; charset=utf-8',
-  //     xhrFields: {
-  //        withCredentials: true
-  //     },
-  //     // crossDomain: true,
-  //     headers: {
-  //        'Authorization': 'Basic ' + authorizationBasic
-  //     },
-  //     //beforeSend: function (xhr) {
-  //     //},
-  //     success: function (result) {
-  //        var token = result;
-  //     },
-  //     //complete: function (jqXHR, textStatus) {
-  //     //},
-  //     error: function (req, status, error) {
-  //     alert(error);
-  //     }
-  // });
-
-  // var clientId = "Parcel_Condition";
-  // var clientSecret = "iot101";
-  //
-  // var authorizationBasic = btoa(clientId + ':' + clientSecret);
-  //
-  // var request = new XMLHttpRequest();
-  // request.open('POST', 'https://www.emcom.eu/api/v1/device/3975/', true);
-  // request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-  // beforeSend: function (xhr) {
-  //   xhr.setRequestHeader('Authorization', 'Basic ' + authorizationBasic);
-  // }
-  // request.setRequestHeader('Accept', 'application/json');
-  // request.send("username=Parcel_Condition&password=iot101&grant_type=password");
-  //
-  // request.onreadystatechange = function () {
-  //     if (request.readyState === 4) {
-  //        alert(request.responseText);
-  //     }
-  // };
-  //
-  //   var username = "Parcel_Condition";
-  // var password = "iot101";
-  //
-  // function make_base_auth(user, password) {
-  //   var tok = user + ':' + password;
-  //   var hash = Base64.encode(tok);
-  //   return "Basic " + hash;
-  // }
-  //
-  // $.ajax
-  //   ({
-  //     beforeSend: function (xhr) {
-  //         xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
-  //     },
-  //     type: "GET",
-  //     url: "https://www.emcom.eu/api/v1/device/3975/",
-  //     dataType: 'json',
-  //     async: false,
-  //     data: '{"username": "' + username + '", "password" : "' + password + '"}',
-  //     success: function (){
-  //     alert('Thanks for your comment!');
-  //     }
-  // });
-
-  // $(document).ready(function(){
-  //
-  //     $.ajax({
-  //     url: 'https://www.emcom.eu/api/v1/device/3975/',
-  //       data: {
-  //       user : {
-  //         email : "Parcel Condition",
-  //         password : "iot101"
-  //       },
-  //       vendor_identifier : '3231-43423-fdsdfs'
-  //     },
-  //     username: "Parcel Condition",
-  //     password: "iot101",
-  //     dataType: 'jsonp',
-  //     success: function(msg) {
-  //     var msg = $.parseJSON(msg);
-  //     console.log(msg);
-  //
-  // });
-
-  // var username = "Parcel Condition";
-  // var password = "iot101";
-  //
-  // function make_base_auth(user, password) {
-  //   var tok = user + ':' + password;
-  //   var hash = btoa(tok);
-  //   return "Basic " + hash;
-  // }
-  // $.ajax
-  //   ({
-  //     type: "GET",
-  //     url: "https://www.emcom.eu/api/v1/device/3975/",
-  //     dataType: 'json',
-  //     async: false,
-  //     data: '{}',
-  //     beforeSend: function (xhr){
-  //         xhr.setRequestHeader('Authorization', make_base_auth(username, password));
-  //     },
-  //     success: function (){
-  //         alert('Thanks for your comment!');
-  //     }
-  // });
-
-  var root = 'https://Parcel%20Condition:iot101@www.emcom.eu/api/v1/device/3975/';
+  var root = 'data.json'; // https://Parcel%20Condition:iot101@www.emcom.eu/api/v1/device/3975/
+  let data;
 
   $.ajax({
     url: root,
     method: 'GET'
-  }).then(function(data) {
-    console.log(data);
+  }).then(function(dt) {
+    data = dt;
   });
 
   let mapProp;
@@ -183,13 +65,14 @@
   let coordLat = 54.6979;
   let coordLng = 25.3118;
 
+
   function myMap() {
   mapProp= {
       center:new google.maps.LatLng(coordLat, coordLng),
       zoom:17,
       panControl: false,
       zoomControl: false,
-      mapTypeControl: true,
+      mapTypeControl: false,
       scaleControl: false,
       streetViewControl: false,
       overviewMapControl: false,
@@ -202,13 +85,14 @@
   marker.setMap(map);
 
   }
-  setInterval(tick, 250);
+  setInterval(tick, 10000); // 30000
 
 
   function tick () {
+    coordLat = data.live["2"];
+    coordLng = data.live["3"];
     var latlng = new google.maps.LatLng(coordLat, coordLng);
     marker.setPosition(latlng);
-  //  coordLat += 0.0001;
   }
   </script>
 
