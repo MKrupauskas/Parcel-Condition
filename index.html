@@ -1,35 +1,183 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css?family=Overpass" rel="stylesheet">
   <script language="javascript" type="text/javascript" src="libraries/p5.js"></script>
   <!-- uncomment lines below to include extra p5 libraries -->
   <!--<script language="javascript" src="libraries/p5.dom.js"></script>-->
   <!--<script language="javascript" src="libraries/p5.sound.js"></script>-->
   <script language="javascript" type="text/javascript" src="sketch.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="oauth.js"></script>
+
   <!-- this line removes any default padding and style. you might only need one of these values set. -->
-  <style> body {padding: 0; margin: 0;} </style>
+  <style>
+
+  html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: #ed7044;
+  }
+
+  h1, h3, h2 {
+    font-family: 'Overpass', sans-serif;
+    padding-left: 0.2em;
+    padding-top: 0.2em;
+    color: #fff;
+  }
+  a[href^="http://maps.google.com/maps"]{display:none !important}
+  a[href^="https://maps.google.com/maps"]{display:none !important}
+
+  .gmnoprint a, .gmnoprint span, .gm-style-cc {
+    display:none;
+  }
+  .gmnoprint div {
+    background:none !important;
+  }
+  </style>
 </head>
 <body>
-
+  <div style="width:100%;height:50px;background:	#FB926D;">
+    <h1>Your Parcels' Location</h1>
+  </div>
   <div id="googleMap" style="width:100%;height:400px;"></div>
+  <div id="condition" style="width:100%;height:50px;background:	#FB926D;">
+    <h1>Your Parcels' Condition</h1>
+  </div>
+  <div id="conditions" style="width:100%;height:400px;background: #fff;">
+  </div>
+  <h3 style="text-align: center;position: relative; top: 55px;">Telia IoT hackathon 2017</h3>
 
   <script>
-  function myMap() {
-  var mapProp= {
-      center:new google.maps.LatLng(54.6979,25.3118),
-      zoom:18,
-  };
-  var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+  // OAuth.initialize('Khtcm8GGKuezCJE1qU6ED7y9p');
+  // var clientId = "MyApp";
+  // var clientSecret = "MySecret";
+  //
+  // var authorizationBasic = (clientId + ':' + clientSecret);
+  //
+  // $.ajax({
+  //     type: 'POST',
+  //     url: oAuth.AuthorizationServer,
+  //     data: { username: 'Parcel_Condition', password: 'iot101', grant_type: 'password' },
+  //     dataType: "json",
+  //     contentType: 'https://www.emcom.eu/api/v1/device/3975/; charset=utf-8',
+  //     xhrFields: {
+  //        withCredentials: true
+  //     },
+  //     // crossDomain: true,
+  //     headers: {
+  //        'Authorization': 'Basic ' + authorizationBasic
+  //     },
+  //     //beforeSend: function (xhr) {
+  //     //},
+  //     success: function (result) {
+  //        var token = result;
+  //     },
+  //     //complete: function (jqXHR, textStatus) {
+  //     //},
+  //     error: function (req, status, error) {
+  //     alert(error);
+  //     }
+  // });
 
-  var marker = new google.maps.Marker({position: mapProp.center, icon: "test.png"});
+  // var clientId = "Parcel_Condition";
+  // var clientSecret = "iot101";
+  //
+  // var authorizationBasic = btoa(clientId + ':' + clientSecret);
+  //
+  // var request = new XMLHttpRequest();
+  // request.open('POST', 'https://www.emcom.eu/api/v1/device/3975/', true);
+  // request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+  // beforeSend: function (xhr) {
+  //   xhr.setRequestHeader('Authorization', 'Basic ' + authorizationBasic);
+  // }
+  // request.setRequestHeader('Accept', 'application/json');
+  // request.send("username=Parcel_Condition&password=iot101&grant_type=password");
+  //
+  // request.onreadystatechange = function () {
+  //     if (request.readyState === 4) {
+  //        alert(request.responseText);
+  //     }
+  // };
+  //
+  //   var username = "Parcel_Condition";
+  // var password = "iot101";
+  //
+  // function make_base_auth(user, password) {
+  //   var tok = user + ':' + password;
+  //   var hash = Base64.encode(tok);
+  //   return "Basic " + hash;
+  // }
+  //
+  // $.ajax
+  //   ({
+  //     beforeSend: function (xhr) {
+  //         xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
+  //     },
+  //     type: "GET",
+  //     url: "https://www.emcom.eu/api/v1/device/3975/",
+  //     dataType: 'json',
+  //     async: false,
+  //     data: '{"username": "' + username + '", "password" : "' + password + '"}',
+  //     success: function (){
+  //     alert('Thanks for your comment!');
+  //     }
+  // });
+
+  // $(document).ready(function(){
+  //
+  //     $.ajax({
+  //     url: 'https://www.emcom.eu/api/v1/device/3975/',
+  //       data: {
+  //       user : {
+  //         email : "Parcel Condition",
+  //         password : "iot101"
+  //       },
+  //       vendor_identifier : '3231-43423-fdsdfs'
+  //     },
+  //     username: "Parcel Condition",
+  //     password: "iot101",
+  //     dataType: 'jsonp',
+  //     success: function(msg) {
+  //     var msg = $.parseJSON(msg);
+  //     console.log(msg);
+  //
+  // });
+
+
+  let mapProp;
+  let map;
+  let marker;
+  let coordLat = 54.6979;
+  let coordLng = 25.3118;
+
+  function myMap() {
+  mapProp= {
+      center:new google.maps.LatLng(coordLat, coordLng),
+      zoom:17,
+      panControl: false,
+      zoomControl: false,
+      mapTypeControl: true,
+      scaleControl: false,
+      streetViewControl: false,
+      overviewMapControl: false,
+      rotateControl: false,
+      styles: [{"featureType":"administrative","elementType":"all","stylers":[{"saturation":"-100"}]},{"featureType":"administrative.province","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"landscape","elementType":"all","stylers":[{"saturation":-100},{"lightness":65},{"visibility":"on"}]},{"featureType":"poi","elementType":"all","stylers":[{"saturation":-100},{"lightness":"50"},{"visibility":"simplified"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":"-100"}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.arterial","elementType":"all","stylers":[{"lightness":"30"}]},{"featureType":"road.local","elementType":"all","stylers":[{"lightness":"40"}]},{"featureType":"transit","elementType":"all","stylers":[{"saturation":-100},{"visibility":"simplified"}]},{"featureType":"water","elementType":"geometry","stylers":[{"hue":"#ffff00"},{"lightness":-25},{"saturation":-97}]},{"featureType":"water","elementType":"labels","stylers":[{"lightness":-25},{"saturation":-50}]}]
+  };
+  map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+  marker = new google.maps.Marker({position: mapProp.center, icon: "test.png"});
 
   marker.setMap(map);
 
-  // var marker = new google.maps.Marker({
-  // position: myCenter,
-  // icon: "pinkball.png"
-  // });
-  // marker.setMap(map);
+  }
+  setInterval(tick, 250);
+
+
+  function tick () {
+    var latlng = new google.maps.LatLng(coordLat, coordLng);
+    marker.setPosition(latlng);
+  //  coordLat += 0.0001;
   }
   </script>
 
