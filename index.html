@@ -39,11 +39,11 @@
 </head>
 <body>
   <div style="width:100%;height:50px;background:	#FB926D;">
-    <h1>Your Parcels' Location</h1>
+    <h1>Your Package // Location</h1>
   </div>
   <div id="googleMap" style="width:100%;height:400px;"></div>
   <div id="condition" style="width:100%;height:50px;background:	#FB926D;">
-    <h1>Your Parcels' Condition</h1>
+    <h1>Your Package // Condition</h1>
   </div>
   <div id="conditions" style="width:100%;height:400px;background: #fff;">
   </div>
@@ -171,7 +171,7 @@
   var root = 'https://Parcel%20Condition:iot101@www.emcom.eu/api/v1/device/3975/';
 
   $.ajax({
-    url: root + '/posts/1',
+    url: root,
     method: 'GET'
   }).then(function(data) {
     console.log(data);
