@@ -145,6 +145,37 @@
   //
   // });
 
+  // var username = "Parcel Condition";
+  // var password = "iot101";
+  //
+  // function make_base_auth(user, password) {
+  //   var tok = user + ':' + password;
+  //   var hash = btoa(tok);
+  //   return "Basic " + hash;
+  // }
+  // $.ajax
+  //   ({
+  //     type: "GET",
+  //     url: "https://www.emcom.eu/api/v1/device/3975/",
+  //     dataType: 'json',
+  //     async: false,
+  //     data: '{}',
+  //     beforeSend: function (xhr){
+  //         xhr.setRequestHeader('Authorization', make_base_auth(username, password));
+  //     },
+  //     success: function (){
+  //         alert('Thanks for your comment!');
+  //     }
+  // });
+
+  var root = 'https://Parcel%20Condition:iot101@www.emcom.eu/api/v1/device/3975/';
+
+  $.ajax({
+    url: root + '/posts/1',
+    method: 'GET'
+  }).then(function(data) {
+    console.log(data);
+  });
 
   let mapProp;
   let map;
