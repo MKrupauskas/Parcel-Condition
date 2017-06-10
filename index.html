@@ -7,11 +7,15 @@
   <!--<script language="javascript" src="libraries/p5.dom.js"></script>-->
   <!--<script language="javascript" src="libraries/p5.sound.js"></script>-->
   <script language="javascript" type="text/javascript" src="sketch.js"></script>
-  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="oauth.js"></script>
--->
+
   <!-- this line removes any default padding and style. you might only need one of these values set. -->
-  <style> body {padding: 0; margin: 0;}
+  <style> body {padding-left: 0; margin-right: 0; padding-right: 0; margin-left: 0;}
+
+  .location {
+    padding-top: 0.5em;
+  }
   h1 {
     font-family: 'Overpass', sans-serif;
     padding-left: 0.2em;
@@ -22,7 +26,7 @@
   </style>
 </head>
 <body>
-  <div style="width:100%;height:50px;background:	#FB926D;">
+  <div  id="location" style="width:100%;height:50px;background:	#FB926D;">
     <h1>Your Parcels' Location</h1>
   </div>
   <div id="googleMap" style="width:100%;height:400px;"></div>
