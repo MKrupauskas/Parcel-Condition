@@ -48,24 +48,49 @@
   //     }
   // });
 
-  var clientId = "MyApp";
-  var clientSecret = "MySecret";
+  // var clientId = "Parcel_Condition";
+  // var clientSecret = "iot101";
+  //
+  // var authorizationBasic = btoa(clientId + ':' + clientSecret);
+  //
+  // var request = new XMLHttpRequest();
+  // request.open('POST', 'https://www.emcom.eu/api/v1/device/3975/', true);
+  // request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+  // beforeSend: function (xhr) {
+  //   xhr.setRequestHeader('Authorization', 'Basic ' + authorizationBasic);
+  // }
+  // request.setRequestHeader('Accept', 'application/json');
+  // request.send("username=Parcel_Condition&password=iot101&grant_type=password");
+  //
+  // request.onreadystatechange = function () {
+  //     if (request.readyState === 4) {
+  //        alert(request.responseText);
+  //     }
+  // };
 
-  var authorizationBasic = (clientId + ':' + clientSecret);
+  var username = "Parcel_Condition";
+var password = "iot101";
 
-  var request = new XMLHttpRequest();
-  request.open('POST', OAuth.AuthorizationServer, true);
-  request.setRequestHeader('Content-Type', 'https://www.emcom.eu/api/v1/device/3975/; charset=UTF-8');
-  request.setRequestHeader('Authorization', 'Basic ' + authorizationBasic);
-  request.setRequestHeader('Accept', 'application/json');
-  request.send("username=Parcel_Condition&password=iot101&grant_type=password");
+function make_base_auth(user, password) {
+  var tok = user + ':' + password;
+  var hash = Base64.encode(tok);
+  return "Basic " + hash;
+}
 
-  request.onreadystatechange = function () {
-      if (request.readyState === 4) {
-         alert(request.responseText);
-      }
-  };
-
+$.ajax
+  ({
+    beforeSend: function (xhr) {
+        xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
+    },
+    type: "GET",
+    url: "https://www.emcom.eu/api/v1/device/3975/",
+    dataType: 'json',
+    async: false,
+    data: '{"username": "' + username + '", "password" : "' + password + '"}',
+    success: function (){
+    alert('Thanks for your comment!');
+    }
+});
 
   let mapProp;
   let map;
@@ -91,7 +116,7 @@
   function tick () {
     var latlng = new google.maps.LatLng(coordLat, coordLng);
     marker.setPosition(latlng);
-    coordLat += 0.0001;
+  //  coordLat += 0.0001;
   }
   </script>
 
