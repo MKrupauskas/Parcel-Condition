@@ -1,23 +1,37 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css?family=Overpass" rel="stylesheet">
   <script language="javascript" type="text/javascript" src="libraries/p5.js"></script>
   <!-- uncomment lines below to include extra p5 libraries -->
   <!--<script language="javascript" src="libraries/p5.dom.js"></script>-->
   <!--<script language="javascript" src="libraries/p5.sound.js"></script>-->
   <script language="javascript" type="text/javascript" src="sketch.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="oauth.js"></script>
-
+-->
   <!-- this line removes any default padding and style. you might only need one of these values set. -->
-  <style> body {padding: 0; margin: 0;} </style>
+  <style> body {padding: 0; margin: 0;}
+  h1 {
+    font-family: 'Overpass', sans-serif;
+    padding-left: 0.2em;
+    padding-top: 0.2em;
+    color: #fff;
+  }
+
+  </style>
 </head>
 <body>
-
+  <div style="width:100%;height:50px;background:	#FB926D;">
+    <h1>Your Parcels' Location</h1>
+  </div>
   <div id="googleMap" style="width:100%;height:400px;"></div>
+  <div style="width:100%;height:50px;background:	#FB926D;">
+    <h1>Your Parcels' Condition</h1>
+  </div>
 
   <script>
-  OAuth.initialize('Khtcm8GGKuezCJE1qU6ED7y9p');
+  // OAuth.initialize('Khtcm8GGKuezCJE1qU6ED7y9p');
   // var clientId = "MyApp";
   // var clientSecret = "MySecret";
   //
@@ -67,30 +81,51 @@
   //        alert(request.responseText);
   //     }
   // };
+  //
+  //   var username = "Parcel_Condition";
+  // var password = "iot101";
+  //
+  // function make_base_auth(user, password) {
+  //   var tok = user + ':' + password;
+  //   var hash = Base64.encode(tok);
+  //   return "Basic " + hash;
+  // }
+  //
+  // $.ajax
+  //   ({
+  //     beforeSend: function (xhr) {
+  //         xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
+  //     },
+  //     type: "GET",
+  //     url: "https://www.emcom.eu/api/v1/device/3975/",
+  //     dataType: 'json',
+  //     async: false,
+  //     data: '{"username": "' + username + '", "password" : "' + password + '"}',
+  //     success: function (){
+  //     alert('Thanks for your comment!');
+  //     }
+  // });
 
-  var username = "Parcel_Condition";
-var password = "iot101";
+  // $(document).ready(function(){
+  //
+  //     $.ajax({
+  //     url: 'https://www.emcom.eu/api/v1/device/3975/',
+  //       data: {
+  //       user : {
+  //         email : "Parcel Condition",
+  //         password : "iot101"
+  //       },
+  //       vendor_identifier : '3231-43423-fdsdfs'
+  //     },
+  //     username: "Parcel Condition",
+  //     password: "iot101",
+  //     dataType: 'jsonp',
+  //     success: function(msg) {
+  //     var msg = $.parseJSON(msg);
+  //     console.log(msg);
+  //
+  // });
 
-function make_base_auth(user, password) {
-  var tok = user + ':' + password;
-  var hash = Base64.encode(tok);
-  return "Basic " + hash;
-}
-
-$.ajax
-  ({
-    beforeSend: function (xhr) {
-        xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
-    },
-    type: "GET",
-    url: "https://www.emcom.eu/api/v1/device/3975/",
-    dataType: 'json',
-    async: false,
-    data: '{"username": "' + username + '", "password" : "' + password + '"}',
-    success: function (){
-    alert('Thanks for your comment!');
-    }
-});
 
   let mapProp;
   let map;
@@ -102,9 +137,15 @@ $.ajax
   mapProp= {
       center:new google.maps.LatLng(coordLat, coordLng),
       zoom:18,
+      panControl: false,
+      zoomControl: false,
+      mapTypeControl: true,
+      scaleControl: false,
+      streetViewControl: false,
+      overviewMapControl: false,
+      rotateControl: false
   };
   map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
-
   marker = new google.maps.Marker({position: mapProp.center, icon: "test.png"});
 
   marker.setMap(map);
