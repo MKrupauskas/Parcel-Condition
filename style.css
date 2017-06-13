@@ -1,0 +1,24 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #ed7044;
+}
+
+h1, h3, h2, a {
+  font-family: 'Overpass', sans-serif;
+  padding-left: 0.2em;
+  padding-top: 0.2em;
+  color: #fff;
+  text-decoration: none;
+}
+
+.title {
+  width: 100%;
+  height: 8%;
+  background: #FB926D;
+}
+
+.googleMap, .canvasDiv {
+  width:100%;
+  height:45%;
+}

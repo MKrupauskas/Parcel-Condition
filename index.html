@@ -1,54 +1,21 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <title>Parcel Condition Telia IoT Hackathon 2017</title>
   <link href="https://fonts.googleapis.com/css?family=Overpass" rel="stylesheet">
   <script language="javascript" type="text/javascript" src="libraries/p5.js"></script>
-  <!-- uncomment lines below to include extra p5 libraries -->
   <script language="javascript" src="libraries/p5.dom.js"></script>
-  <!--<script language="javascript" src="libraries/p5.sound.js"></script>-->
   <script language="javascript" type="text/javascript" src="sketch.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-  <!-- this line removes any default padding and style. you might only need one of these values set. -->
-  <style>
-
-  html, body {
-        margin: 0;
-        padding: 0;
-        background-color: #ed7044;
-/*        overflow-x: hidden;*/
-  }
-
-  h1, h3, h2, a {
-    font-family: 'Overpass', sans-serif;
-    padding-left: 0.2em;
-    padding-top: 0.2em;
-    color: #fff;
-    text-decoration: none;
-  }
-  a[href^="http://maps.google.com/maps"]{display:none !important}
-  a[href^="https://maps.google.com/maps"]{display:none !important}
-
-  .gmnoprint a, .gmnoprint span, .gm-style-cc {
-    display:none;
-  }
-  .gmnoprint div {
-    background:none !important;
-  }
-  </style>
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-  <div style="width:100%;height:8%;background:	#FB926D;">
-  <h1><a href="SecondInterfaceVersion\second.html">Your Package</a></h1>
-</div><!--
---><div id="googleMap" style="width:100%;height:45%;"></div><!--
-<div id="condition" style="width:100%;height:8%;background:	#FB926D;">
-  <h1>Your Package // Condition</h1>
-</div>
---><div id="canvasDiv" style="width:100%;height:45%;">
-   <!--<canvas id="canvas" style="width:100%;height:400px;"></canvas>-->
-</div><!--
-<h3 style="text-align: center;position: relative; top: 4%;">Telia IoT hackathon 2017</h3>-->
+  <div id="title">
+    <h1><a href="SecondInterfaceVersion\second.html">Your Package</a></h1>
+  </div>
+  <div id="googleMap"></div>
+  <div id="canvasDiv"></div>
+<h3 style="text-align: center;position: relative; margin-bottom: 2em;">Telia IoT hackathon 2017</h3>
 
   <script>
 
@@ -91,8 +58,9 @@
   marker.setMap(map);
 
   }
-  setInterval(tick, 10000); // 30000
 
+  // 10 seconds
+  setInterval(tick, 10000);
 
   function tick () {
 	var map;
