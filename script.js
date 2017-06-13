@@ -1,9 +1,9 @@
-var dt;
+let data;
 $.ajax({
   url: "data.json",
   async: false,
-  success: function(csvd) {
-    dt = csvd;
+  success: function(tempData) {
+    data = tempData;
   },
   dataType: "json",
   complete: function() {
@@ -14,8 +14,8 @@ $.ajax({
 let mapProp;
 let map;
 let marker;
-let coordLat = dt.live["2"];
-let coordLng = dt.live["3"];
+let coordLat = data.live["2"];
+let coordLng = data.live["3"];
 
 function myMap() {
   mapProp = {
@@ -70,20 +70,20 @@ setInterval(tick, 10000);
 
 function tick() {
   var map;
-  var dt;
+  var data;
   $.ajax({
     url: "data.json",
     async: false,
-    success: function(csvd) {
-      dt = csvd;
+    success: function(tempData) {
+      data = tempData;
     },
     dataType: "json",
     complete: function() {
       // call a function on complete
     }
   });
-  coordLat = dt.live["2"];
-  coordLng = dt.live["3"];
+  coordLat = data.live["2"];
+  coordLng = data.live["3"];
   var latlng = new google.maps.LatLng(coordLat, coordLng);
   marker.setPosition(latlng);
 }
