@@ -52,12 +52,12 @@ function readTheData() {
   $.ajax({
     url: "data.json",
     async: false,
-    success: function(csvd) {
-      humidity = csvd.live["220"];
-      temperature = csvd.live["200"];
-      signalStrength = csvd.live["130"];
+    success: function(tempData) {
+      humidity = tempData.live["220"];
+      temperature = tempData.live["200"];
+      signalStrength = tempData.live["130"];
       updates++;
-      console.log(csvd.live["4"]);
+      console.log(tempData.live["4"]);
     },
     dataType: "json",
     complete: function() {
