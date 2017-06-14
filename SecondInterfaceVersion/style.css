@@ -1,0 +1,28 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+h1, h2, h3, h4, h5, h6, p, a {
+  font-family: 'Overpass', sans-serif;
+  color: black;
+  text-decoration: none;
+}
+#map {
+  height: 100%;
+  width: 100%;
+}
+#legend {
+  background: #fff;
+  width: 200px;
+  padding: 10px;
+}
+#switch {
+  background: #fff;
+  padding: 0px;
+  height: 50px;
+  width: 100%;
+}
+span {
+  color: green;
+}
