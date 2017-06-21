@@ -22,7 +22,7 @@ def printit():
     data = f.read()
     d = json.loads(data)
     print d
-    with open('dat.json', 'w') as f: 
+    with open('data.json', 'w') as f: 
         json.dump(d, f, indent=4)
 
 printit()
