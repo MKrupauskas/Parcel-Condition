@@ -1,4 +1,4 @@
-var spacey,
+let spacey,
   w,
   h,
   distance,
@@ -13,10 +13,8 @@ var spacey,
   updates,
   humImg,
   tempImg;
-var signalImg, damaged, warningImg;
+let signalImg, damaged, warningImg;
 function setup() {
-  // loadJSON('https://www.emcom.eu/api/v1/device/3975/').header("Authorization", make_base_auth("Parcel-Condition","iot101").get(function(error,data){console.log(error);console.log(data);}));
-
   spacey = select("#canvasDiv");
 
   w = spacey.width;
@@ -31,9 +29,8 @@ function setup() {
   sizeX = (w - 3 * distance) / 2;
   sizeY = (h - 3 * distance) / 2;
 
-  var canvas = createCanvas(w, h);
+  let canvas = createCanvas(w, h);
   canvas.parent("canvasDiv");
-  //canvas.position(0, 0);
   humImg = loadImage("images/Rain-Drop-icon.png");
   tempImg = loadImage("images/temp.png");
   signalImg = loadImage("images/signal.png");
@@ -42,10 +39,6 @@ function setup() {
   readTheData();
 
   usedFont = loadFont("font.ttf");
-
-  humidity = 57;
-  temperature = "+24.3";
-  signalStrength = 56;
 }
 
 function readTheData() {
@@ -60,16 +53,12 @@ function readTheData() {
       console.log(tempData.live["4"]);
     },
     dataType: "json",
-    complete: function() {
-      console.log("success");
-    }
   });
 }
 
 function draw() {
   if (countdownLeft <= 0) {
     countdownLeft = countdown;
-    //readTheData();
   } else {
     countdownLeft--;
   }
@@ -84,7 +73,6 @@ function draw() {
   rect(distance, distance * 2 + sizeY, sizeX, sizeY, 20);
   rect(distance * 2 + sizeX, distance * 2 + sizeY, sizeX, sizeY, 20);
 
-  //textFont(usedFont);
   noStroke();
   textSize(50);
   textAlign(CENTER);
@@ -168,6 +156,5 @@ function draw() {
       distance * 2 + sizeX * 1.5,
       distance * 2 + sizeY + sizeY / 5 * 4
     );
-    //image(warningImg, distance*2+sizeX*1.5-sizeY, distance*2+sizeY+sizeY/5+sizeY/23, sizeY/5*3, sizeY/5*3);
   }
 }
