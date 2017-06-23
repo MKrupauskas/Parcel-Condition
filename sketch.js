@@ -50,7 +50,6 @@ function readTheData() {
       temperature = tempData.live["200"];
       signalStrength = tempData.live["130"];
       updates++;
-      console.log(tempData.live["4"]);
     },
     dataType: "json",
   });
