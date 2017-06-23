@@ -51,7 +51,7 @@ function setup() {
 function readTheData() {
   $.ajax({
     url: "data.json",
-    async: false,
+    async: true,
     success: function(tempData) {
       humidity = tempData.live["220"];
       temperature = tempData.live["200"];
