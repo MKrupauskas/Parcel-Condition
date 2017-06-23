@@ -21,112 +21,110 @@
 let map;
 let data;
 $.ajax({
-  url: "data.json",
-  async: false,
-  success: function(tempData) {
-    data = tempData;
-  },
-  dataType: "json",
-  complete: function() {
-    // call a function on complete
-  }
+	url: 'data.json',
+	async: false,
+	success: function(tempData) {
+		data = tempData;
+	},
+	dataType: 'json',
+	complete: function() {
+		// call a function on complete
+	}
 });
-let legend = document.getElementById("legend");
+let legend = document.getElementById('legend');
 function initMap() {
-  console.log(data);
-  map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 16,
-    mapTypeId: google.maps.MapTypeId.ROADMAP,
-    disableDefaultUI: true,
-    zoomControl: true,
-    center: { lat: data["live"]["2"], lng: data["live"]["3"] },
-    styles: [
-      { featureType: "all", elementType: "all", stylers: [{ hue: "#008eff" }] },
-      {
-        featureType: "poi",
-        elementType: "all",
-        stylers: [{ visibility: "off" }]
-      },
-      {
-        featureType: "road",
-        elementType: "all",
-        stylers: [{ saturation: "0" }, { lightness: "0" }]
-      },
-      {
-        featureType: "transit",
-        elementType: "all",
-        stylers: [{ visibility: "off" }]
-      },
-      {
-        featureType: "water",
-        elementType: "all",
-        stylers: [
-          { visibility: "simplified" },
-          { saturation: "-60" },
-          { lightness: "-20" }
-        ]
-      }
-    ]
-  });
+	map = new google.maps.Map(document.getElementById('map'), {
+		zoom: 16,
+		mapTypeId: google.maps.MapTypeId.ROADMAP,
+		disableDefaultUI: true,
+		zoomControl: true,
+		center: { lat: data['live']['2'], lng: data['live']['3'] },
+		styles: [
+			{ featureType: 'all', elementType: 'all', stylers: [{ hue: '#008eff' }] },
+			{
+				featureType: 'poi',
+				elementType: 'all',
+				stylers: [{ visibility: 'off' }]
+			},
+			{
+				featureType: 'road',
+				elementType: 'all',
+				stylers: [{ saturation: '0' }, { lightness: '0' }]
+			},
+			{
+				featureType: 'transit',
+				elementType: 'all',
+				stylers: [{ visibility: 'off' }]
+			},
+			{
+				featureType: 'water',
+				elementType: 'all',
+				stylers: [
+					{ visibility: 'simplified' },
+					{ saturation: '-60' },
+					{ lightness: '-20' }
+				]
+			}
+		]
+	});
 
-  let marker = new google.maps.Marker({
-    position: new google.maps.LatLng(data["live"]["2"], data["live"]["3"]),
-    icon: "../images/test.png",
-    map: map
-  });
+	let marker = new google.maps.Marker({
+		position: new google.maps.LatLng(data['live']['2'], data['live']['3']),
+		icon: '../images/test.png',
+		map: map
+	});
 
-  let infowindow = new google.maps.InfoWindow();
-  marker.addListener("click", function(event) {
-    infowindow.setContent(
-      "<div style='width:150px; charset=\"utf-8\"; text-align: center;'>" +
-        "<p>lat: " +
-        data["live"]["2"] +
-        ", long: " +
-        data["live"]["3"] +
-        "</p>" +
-        "</div>"
-    );
-    infowindow.setPosition(event.latLng);
-    infowindow.open(map);
-  });
+	let infowindow = new google.maps.InfoWindow();
+	marker.addListener('click', function(event) {
+		infowindow.setContent(
+			'<div style=\'width:150px; charset="utf-8"; text-align: center;\'>' +
+				'<p>lat: ' +
+				data['live']['2'] +
+				', long: ' +
+				data['live']['3'] +
+				'</p>' +
+				'</div>'
+		);
+		infowindow.setPosition(event.latLng);
+		infowindow.open(map);
+	});
 
-  let divv = document.createElement("div");
-  divv.innerHTML =
-    '<p style="font-size:200%;text-align:center;"> <b>Info</b></p></p>';
-  legend.appendChild(divv);
-  let divv = document.createElement("div");
-  divv.innerHTML =
-    '<p style="font-size:150%;text-align:center;"><b>Temperature: </b>' +
-    data.live["200"] +
-    "°C</br>  <span>(Optimal)</span></p>";
-  legend.appendChild(divv);
-  let divv = document.createElement("div");
-  divv.innerHTML =
-    '<p style="font-size:150%;text-align:center;"><b>Humidity: </b>' +
-    Math.round(data.live["220"]) +
-    "%</br><span>(Optimal)</span></p>";
-  legend.appendChild(divv);
-  let divv = document.createElement("div");
-  divv.innerHTML =
-    '<p style="font-size:150%;text-align:center;"><b>Battery: </b>' +
-    data.live["10"] +
-    "%</br><span>(Optimal)</span></p>";
-  legend.appendChild(divv);
-  let divv = document.createElement("div");
-  divv.innerHTML =
-    '<p style="font-size:150%;text-align:center;"><b>Condition: </b><span>Good</span></p>';
-  legend.appendChild(divv);
+	var divv = document.createElement('div');
+	divv.innerHTML =
+		'<p style="font-size:200%;text-align:center;"> <b>Info</b></p></p>';
+	legend.appendChild(divv);
+	var divv = document.createElement('div');
+	divv.innerHTML =
+		'<p style="font-size:150%;text-align:center;"><b>Temperature: </b>' +
+		data.live['200'] +
+		'°C</br>  <span>(Optimal)</span></p>';
+	legend.appendChild(divv);
+	var divv = document.createElement('div');
+	divv.innerHTML =
+		'<p style="font-size:150%;text-align:center;"><b>Humidity: </b>' +
+		Math.round(data.live['220']) +
+		'%</br><span>(Optimal)</span></p>';
+	legend.appendChild(divv);
+	var divv = document.createElement('div');
+	divv.innerHTML =
+		'<p style="font-size:150%;text-align:center;"><b>Battery: </b>' +
+		data.live['10'] +
+		'%</br><span>(Optimal)</span></p>';
+	legend.appendChild(divv);
+	var divv = document.createElement('div');
+	divv.innerHTML =
+		'<p style="font-size:150%;text-align:center;"><b>Condition: </b><span>Good</span></p>';
+	legend.appendChild(divv);
 
-  map.controls[google.maps.ControlPosition.TOP_CENTER].push(
-    document.getElementById("switch")
-  );
-  map.controls[google.maps.ControlPosition.LEFT_CENTER].push(
-    document.getElementById("legend")
-  );
+	map.controls[google.maps.ControlPosition.TOP_CENTER].push(
+		document.getElementById('switch')
+	);
+	map.controls[google.maps.ControlPosition.LEFT_CENTER].push(
+		document.getElementById('legend')
+	);
 }
-
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAGPUkQT9bfrBVUFE0Eg1wQfwVh94-0nsQ&callback=initMap"
+</script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6ptOYFDBKkUQmlJgwSla1apd3tN4RknI&callback=initMap"
     async defer></script>
   </body>
 </html>
