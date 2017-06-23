@@ -6,32 +6,29 @@
     <meta charset="utf-8">
     <link href="https://fonts.googleapis.com/css?family=Overpass" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   </head>
   <body>
-	<div id="switch" style="text-align:center">
-	    <h1 style="text-align:center;font-weight: bold;"><a href="../index.html">Your Package</a></h1>
+	<div id="switch">
+	    <h1><a href="../index.html">Your Package</a></h1>
 	</div>
-	<div id="legend">
-	<b></b><p></p>
-	</div>
+	<div id="legend"></div>
 
-	<script src="jquery-3.1.0.min.js"></script>
-    <div id="map"></div>
-    <script>
+  <div id="map"></div>
+  <script>
 let map;
 let data;
 $.ajax({
-	url: 'data.json',
+	url: '../data.json',
 	async: false,
 	success: function(tempData) {
 		data = tempData;
 	},
 	dataType: 'json',
-	complete: function() {
-		// call a function on complete
-	}
 });
+
 let legend = document.getElementById('legend');
+
 function initMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
 		zoom: 16,
@@ -89,32 +86,32 @@ function initMap() {
 		infowindow.open(map);
 	});
 
-	var divv = document.createElement('div');
-	divv.innerHTML =
+	var holder = document.createElement('div');
+	holder.innerHTML =
 		'<p style="font-size:200%;text-align:center;"> <b>Info</b></p></p>';
-	legend.appendChild(divv);
-	var divv = document.createElement('div');
-	divv.innerHTML =
+	legend.appendChild(holder);
+	var holder = document.createElement('div');
+	holder.innerHTML =
 		'<p style="font-size:150%;text-align:center;"><b>Temperature: </b>' +
 		data.live['200'] +
 		'°C</br>  <span>(Optimal)</span></p>';
-	legend.appendChild(divv);
-	var divv = document.createElement('div');
-	divv.innerHTML =
+	legend.appendChild(holder);
+	var holder = document.createElement('div');
+	holder.innerHTML =
 		'<p style="font-size:150%;text-align:center;"><b>Humidity: </b>' +
 		Math.round(data.live['220']) +
 		'%</br><span>(Optimal)</span></p>';
-	legend.appendChild(divv);
-	var divv = document.createElement('div');
-	divv.innerHTML =
+	legend.appendChild(holder);
+	var holder = document.createElement('div');
+	holder.innerHTML =
 		'<p style="font-size:150%;text-align:center;"><b>Battery: </b>' +
 		data.live['10'] +
 		'%</br><span>(Optimal)</span></p>';
-	legend.appendChild(divv);
-	var divv = document.createElement('div');
-	divv.innerHTML =
+	legend.appendChild(holder);
+	var holder = document.createElement('div');
+	holder.innerHTML =
 		'<p style="font-size:150%;text-align:center;"><b>Condition: </b><span>Good</span></p>';
-	legend.appendChild(divv);
+	legend.appendChild(holder);
 
 	map.controls[google.maps.ControlPosition.TOP_CENTER].push(
 		document.getElementById('switch')
