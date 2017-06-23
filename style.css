@@ -1,4 +1,5 @@
 html, body {
+  height: 100%;
   margin: 0;
   padding: 0;
   background-color: #ed7044;
@@ -18,13 +19,13 @@ h3 {
   margin-bottom: 2em;
 }
 
-.title {
+#title {
   width: 100%;
   height: 8%;
   background: #FB926D;
 }
 
-.googleMap, .canvasDiv {
+#map, #canvasDiv {
   width:100%;
   height:45%;
 }
