@@ -1,33 +1,28 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
     <title>Parcel Condition Telia IoT Hackathon 2017</title>
-
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
     <link href="https://fonts.googleapis.com/css?family=Overpass" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style.css">
-
     <script language="javascript" type="text/javascript" src="libraries/p5.js"></script>
     <script language="javascript" src="libraries/p5.dom.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!--<script language="javascript" type="text/javascript" src="sketch.js"></script>-->
-    <script>let data;
-    $.ajax({
-      url: "data.json",
-      async: false,
-      success: function(tempData) {
-        data = tempData;
-      },
-      dataType: "json",
-      complete: function() {
-        // call a function on complete
-      }
-    });
-
+    <script language="javascript" type="text/javascript" src="sketch.js"></script>
+  </head>
+  <body>
+    <div id="title">
+      <h1><a href="SecondInterfaceVersion\second.html">Your Package</a></h1>
+    </div>
+    <div id="map"></div>
+    <div id="canvasDiv"></div>
+    <script>
     let mapProp;
     let map;
     let marker;
-    let coordLat = data.live["2"];
-    let coordLng = data.live["3"];
+    let coordLat = 52; // data.live["2"];
+    let coordLng = 24; // data.live["3"];
 
     function initMap() {
       mapProp = {
@@ -68,7 +63,7 @@
           }
         ]
       };
-      map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+      map = new google.maps.Map(document.getElementById("map"), mapProp);
       marker = new google.maps.Marker({
         position: mapProp.center,
         icon: "images/test.png"
@@ -77,41 +72,9 @@
       marker.setMap(map);
     }
 
-    // 10 seconds
-    setInterval(tick, 10000);
-
-    function tick() {
-      var map;
-      var data;
-      $.ajax({
-        url: "data.json",
-        async: false,
-        success: function(tempData) {
-          data = tempData;
-        },
-        dataType: "json",
-        complete: function() {
-          // call a function on complete
-        }
-      });
-      coordLat = data.live["2"];
-      coordLng = data.live["3"];
-      var latlng = new google.maps.LatLng(coordLat, coordLng);
-      marker.setPosition(latlng);
-    }
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDz1gZfoXvCtA-OJqYCMedkjxuEVAQdMdA&callback=initMap"
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6ptOYFDBKkUQmlJgwSla1apd3tN4RknI&callback=initMap"
     async defer></script>
-    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDz1gZfoXvCtA-OJqYCMedkjxuEVAQdMdA&callback=myMap"></script>-->
-  </head>
-  <body>
-    <div id="title">
-      <h1><a href="SecondInterfaceVersion\second.html">Your Package</a></h1>
-    </div>
-
-    <div id="googleMap"></div>
-    <div id="canvasDiv"></div>
-
     <h3>Telia IoT hackathon 2017</h3>
   </body>
 </html>
