@@ -20,6 +20,8 @@ h1 {
   background: #fff;
   width: 200px;
   padding: 10px;
+  text-align: center;
+  font-size: 150%;
 }
 #switch {
   background: #fff;
@@ -33,4 +35,7 @@ span {
 #infoBox {
   width:150px;
   text-align: center;
+}
+#info {
+  font-size: 200%;
 }
