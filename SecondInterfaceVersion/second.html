@@ -31,6 +31,9 @@ $.ajax({
 let legend = document.getElementById('legend');
 let coordLat = data['live']['2'];
 let coordLng = data['live']['3'];
+let temperature = data.live['200'];
+let humidity = Math.round(data.live['220']);
+let battery = data.live['10'];
 let infoWindowContent =
 	"<div id='infoBox'><p>latitude: " +
 	coordLat +
@@ -90,29 +93,29 @@ function initMap() {
 
 	var holder = document.createElement('div');
 	holder.innerHTML =
-		'<p style="font-size:200%;text-align:center;"> <b>Info</b></p></p>';
+		'<p id="info"> <b>Info</b></p></p>';
 	legend.appendChild(holder);
 	var holder = document.createElement('div');
 	holder.innerHTML =
-		'<p style="font-size:150%;text-align:center;"><b>Temperature: </b>' +
-		data.live['200'] +
+		'<p><b>Temperature: </b>' +
+		temperature +
 		'°C</br>  <span>(Optimal)</span></p>';
 	legend.appendChild(holder);
 	var holder = document.createElement('div');
 	holder.innerHTML =
-		'<p style="font-size:150%;text-align:center;"><b>Humidity: </b>' +
-		Math.round(data.live['220']) +
+		'<p><b>Humidity: </b>' +
+		humidity +
 		'%</br><span>(Optimal)</span></p>';
 	legend.appendChild(holder);
 	var holder = document.createElement('div');
 	holder.innerHTML =
-		'<p style="font-size:150%;text-align:center;"><b>Battery: </b>' +
-		data.live['10'] +
+		'<p ><b>Battery: </b>' +
+		battery +
 		'%</br><span>(Optimal)</span></p>';
 	legend.appendChild(holder);
 	var holder = document.createElement('div');
 	holder.innerHTML =
-		'<p style="font-size:150%;text-align:center;"><b>Condition: </b><span>Good</span></p>';
+		'<p><b>Condition: </b><span>Good</span></p>';
 	legend.appendChild(holder);
 
 	map.controls[google.maps.ControlPosition.TOP_CENTER].push(
