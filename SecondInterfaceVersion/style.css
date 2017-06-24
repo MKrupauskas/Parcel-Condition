@@ -30,3 +30,7 @@ h1 {
 span {
   color: green;
 }
+#infoBox {
+  width:150px;
+  text-align: center;
+}
