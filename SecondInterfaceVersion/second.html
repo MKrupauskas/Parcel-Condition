@@ -9,7 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   </head>
   <body>
-	<div id="switch">
+	<div id="title">
 	    <h1><a href="../index.html">Your Package</a></h1>
 	</div>
 	<div id="legend"></div>
@@ -25,10 +25,11 @@ $.ajax({
 	success: function(tempData) {
 		data = tempData;
 	},
-	dataType: 'json',
+	dataType: 'json'
 });
 
 let legend = document.getElementById('legend');
+const title = document.getElementById('switch');
 let coordLat = data['live']['2'];
 let coordLng = data['live']['3'];
 let temperature = data.live['200'];
@@ -40,7 +41,13 @@ let infoWindowContent =
 	'<br/>longitude: ' +
 	coordLng +
 	'</p></div>';
-
+let legendInfoContent = [
+	'<p id="info">Information</p>',
+	'<p><b>Temperature: </b>' + temperature + '°C</br><span>(Optimal)</span></p>',
+	'<p><b>Humidity: </b>' + humidity + '%</br><span>(Optimal)</span></p>',
+	'<p ><b>Battery: </b>' + battery + '%</br><span>(Optimal)</span></p>',
+	'<p><b>Condition: </b><span>Good</span></p>'
+];
 
 function initMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
@@ -91,39 +98,17 @@ function initMap() {
 		infoWindow.open(map);
 	});
 
-	var holder = document.createElement('div');
-	holder.innerHTML =
-		'<p id="info"> <b>Info</b></p></p>';
-	legend.appendChild(holder);
-	var holder = document.createElement('div');
-	holder.innerHTML =
-		'<p><b>Temperature: </b>' +
-		temperature +
-		'°C</br>  <span>(Optimal)</span></p>';
-	legend.appendChild(holder);
-	var holder = document.createElement('div');
-	holder.innerHTML =
-		'<p><b>Humidity: </b>' +
-		humidity +
-		'%</br><span>(Optimal)</span></p>';
-	legend.appendChild(holder);
-	var holder = document.createElement('div');
-	holder.innerHTML =
-		'<p ><b>Battery: </b>' +
-		battery +
-		'%</br><span>(Optimal)</span></p>';
-	legend.appendChild(holder);
-	var holder = document.createElement('div');
-	holder.innerHTML =
-		'<p><b>Condition: </b><span>Good</span></p>';
-	legend.appendChild(holder);
+  drawLegend();
 
-	map.controls[google.maps.ControlPosition.TOP_CENTER].push(
-		document.getElementById('switch')
-	);
-	map.controls[google.maps.ControlPosition.LEFT_CENTER].push(
-		document.getElementById('legend')
-	);
+	map.controls[google.maps.ControlPosition.TOP_CENTER].push(title);
+	map.controls[google.maps.ControlPosition.LEFT_CENTER].push(legend);
+}
+function drawLegend() {
+  for (let i = 0; i < legendInfoContent.length; i++) {
+    let holder = document.createElement('div');
+    holder.innerHTML = legendInfoContent[i];
+    legend.appendChild(holder);
+  }
 }
 </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6ptOYFDBKkUQmlJgwSla1apd3tN4RknI&callback=initMap"
