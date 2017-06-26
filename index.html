@@ -31,6 +31,8 @@
 
     function changeData () {
       getData();
+      coordLat = data.live["2"];
+      coordLng = data.live["3"];
       let latlng = new google.maps.LatLng(coordLat, coordLng);
       marker.setPosition(latlng);
     }
@@ -43,10 +45,6 @@
           data = tempData;
         },
         dataType: "json",
-        complete: function() {
-          coordLat = data.live["2"];
-          coordLng = data.live["3"];
-        }
       });
     }
 
