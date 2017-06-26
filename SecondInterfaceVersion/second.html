@@ -18,23 +18,10 @@
   <script>
 let map;
 let data;
-
-$.ajax({
-	url: '../data.json',
-	async: false,
-	success: function(tempData) {
-		data = tempData;
-	},
-	dataType: 'json'
-});
-
 let legend = document.getElementById('legend');
 const title = document.getElementById('switch');
-let coordLat = data['live']['2'];
-let coordLng = data['live']['3'];
-let temperature = data.live['200'];
-let humidity = Math.round(data.live['220']);
-let battery = data.live['10'];
+let coordLat, coordLng, temperature, humidity, battery;
+getData();
 let infoWindowContent =
 	"<div id='infoBox'><p>latitude: " +
 	coordLat +
@@ -49,13 +36,29 @@ let legendInfoContent = [
 	'<p><b>Condition: </b><span>Good</span></p>'
 ];
 
+function getData () {
+$.ajax({
+	url: '../data.json',
+	async: false,
+	success: function(tempData) {
+		data = tempData;
+    coordLat = data['live']['2'];
+    coordLng = data['live']['3'];
+    temperature = data.live['200'];
+    humidity = Math.round(data.live['220']);
+    battery = data.live['10'];
+	},
+	dataType: 'json'
+});
+}
+
 function initMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
 		zoom: 16,
 		mapTypeId: google.maps.MapTypeId.ROADMAP,
 		disableDefaultUI: true,
 		zoomControl: true,
-		center: { lat: data['live']['2'], lng: data['live']['3'] },
+		center: { lat: coordLat, lng: coordLng},
 		styles: [
 			{ featureType: 'all', elementType: 'all', stylers: [{ hue: '#008eff' }] },
 			{
@@ -103,13 +106,16 @@ function initMap() {
 	map.controls[google.maps.ControlPosition.TOP_CENTER].push(title);
 	map.controls[google.maps.ControlPosition.LEFT_CENTER].push(legend);
 }
+
 function drawLegend() {
+  legend.innerHTML = "";
   for (let i = 0; i < legendInfoContent.length; i++) {
     let holder = document.createElement('div');
     holder.innerHTML = legendInfoContent[i];
     legend.appendChild(holder);
   }
 }
+
 </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6ptOYFDBKkUQmlJgwSla1apd3tN4RknI&callback=initMap"
     async defer></script>
