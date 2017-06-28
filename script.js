@@ -5,7 +5,7 @@ let coordLat = 0;
 let coordLng = 0;
 let data;
 
-getData();
+changeData();
 setInterval(changeData, 2000);
 
 
