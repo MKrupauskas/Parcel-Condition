@@ -18,20 +18,29 @@ let legendInfoContent = [
 	'<p><b>Condition: </b><span>Good</span></p>'
 ];
 
-function getData () {
-$.ajax({
-	url: '../data.json',
-	async: false,
-	success: function(tempData) {
-		data = tempData;
-    coordLat = data['live']['2'];
-    coordLng = data['live']['3'];
-    temperature = data.live['200'];
-    humidity = Math.round(data.live['220']);
-    battery = data.live['10'];
-	},
-	dataType: 'json'
-});
+changeData();
+setInterval(changeData, 2000);
+
+function getData() {
+	$.ajax({
+		url: '../data.json',
+		async: false,
+		success: function(tempData) {
+			data = tempData;
+			coordLat = data['live']['2'];
+			coordLng = data['live']['3'];
+			temperature = data.live['200'];
+			humidity = Math.round(data.live['220']);
+			battery = data.live['10'];
+		},
+		dataType: 'json'
+	});
+}
+
+function changeData() {
+	getData();
+	drawLegend();
+	marker.setPosition(new google.maps.LatLng(coordLat, coordLng));
 }
 
 function initMap() {
@@ -40,7 +49,7 @@ function initMap() {
 		mapTypeId: google.maps.MapTypeId.ROADMAP,
 		disableDefaultUI: true,
 		zoomControl: true,
-		center: { lat: coordLat, lng: coordLng},
+		center: { lat: coordLat, lng: coordLng },
 		styles: [
 			{ featureType: 'all', elementType: 'all', stylers: [{ hue: '#008eff' }] },
 			{
@@ -71,7 +80,7 @@ function initMap() {
 	});
 
 	let marker = new google.maps.Marker({
-		position: new google.maps.LatLng(data['live']['2'], data['live']['3']),
+		position: new google.maps.LatLng(coordLat, coordLng),
 		icon: '../images/test.png',
 		map: map
 	});
@@ -83,17 +92,17 @@ function initMap() {
 		infoWindow.open(map);
 	});
 
-  drawLegend();
+	drawLegend();
 
 	map.controls[google.maps.ControlPosition.TOP_CENTER].push(title);
 	map.controls[google.maps.ControlPosition.LEFT_CENTER].push(legend);
 }
 
 function drawLegend() {
-  legend.innerHTML = "";
-  for (let i = 0; i < legendInfoContent.length; i++) {
-    let holder = document.createElement('div');
-    holder.innerHTML = legendInfoContent[i];
-    legend.appendChild(holder);
-  }
+	legend.innerHTML = '';
+	for (let i = 0; i < legendInfoContent.length; i++) {
+		let holder = document.createElement('div');
+		holder.innerHTML = legendInfoContent[i];
+		legend.appendChild(holder);
+	}
 }
