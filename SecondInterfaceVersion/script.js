@@ -1,22 +1,9 @@
 let map;
 let data;
 let legend = document.getElementById('legend');
-const title = document.getElementById('switch');
+const title = document.getElementById('title');
 let coordLat, coordLng, temperature, humidity, battery;
-getData();
-let infoWindowContent =
-	"<div id='infoBox'><p>latitude: " +
-	coordLat +
-	'<br/>longitude: ' +
-	coordLng +
-	'</p></div>';
-let legendInfoContent = [
-	'<p id="info">Information</p>',
-	'<p><b>Temperature: </b>' + temperature + '°C</br><span>(Optimal)</span></p>',
-	'<p><b>Humidity: </b>' + humidity + '%</br><span>(Optimal)</span></p>',
-	'<p ><b>Battery: </b>' + battery + '%</br><span>(Optimal)</span></p>',
-	'<p><b>Condition: </b><span>Good</span></p>'
-];
+let infoWindowContent, legendInfoContent;
 
 function getData() {
 	$.ajax({
@@ -34,22 +21,14 @@ function getData() {
 	});
 }
 
-function changeData() {
-	getData();
-	drawLegend();
-	marker.setPosition(new google.maps.LatLng(coordLat, coordLng));
-}
-
-changeData();
-setInterval(changeData, 2000);
-
 function initMap() {
+	getData();
 	map = new google.maps.Map(document.getElementById('map'), {
 		zoom: 16,
 		mapTypeId: google.maps.MapTypeId.ROADMAP,
 		disableDefaultUI: true,
 		zoomControl: true,
-		center: { lat: coordLat, lng: coordLng },
+		center: new google.maps.LatLng(coordLat, coordLng),
 		styles: [
 			{ featureType: 'all', elementType: 'all', stylers: [{ hue: '#008eff' }] },
 			{
@@ -92,10 +71,36 @@ function initMap() {
 		infoWindow.open(map);
 	});
 
-	drawLegend();
-
 	map.controls[google.maps.ControlPosition.TOP_CENTER].push(title);
 	map.controls[google.maps.ControlPosition.LEFT_CENTER].push(legend);
+
+	changeData();
+	setInterval(changeData, 2000);
+}
+
+function changeData() {
+	getData();
+
+	infoWindowContent =
+		"<div id='infoBox'><p>latitude: " +
+		coordLat +
+		'<br/>longitude: ' +
+		coordLng +
+		'</p></div>';
+	legendInfoContent = [
+		'<p id="info">Information</p>',
+		'<p><b>Temperature: </b>' +
+			temperature +
+			'°C</br><span>(Optimal)</span></p>',
+		'<p><b>Humidity: </b>' + humidity + '%</br><span>(Optimal)</span></p>',
+		'<p ><b>Battery: </b>' + battery + '%</br><span>(Optimal)</span></p>',
+		'<p><b>Condition: </b><span>Good</span></p>'
+	];
+
+	drawLegend();
+
+	// let latlng = new google.maps.LatLng(coordLat, coordLng);
+	// marker.setPosition(latlng);
 }
 
 function drawLegend() {
