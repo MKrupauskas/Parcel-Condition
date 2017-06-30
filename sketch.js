@@ -56,6 +56,7 @@ function readTheData() {
 }
 
 function draw() {
+	readTheData();
 	if (countdownLeft <= 0) {
 		countdownLeft = countdown;
 	} else {
