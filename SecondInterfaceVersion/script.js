@@ -18,9 +18,6 @@ let legendInfoContent = [
 	'<p><b>Condition: </b><span>Good</span></p>'
 ];
 
-changeData();
-setInterval(changeData, 2000);
-
 function getData() {
 	$.ajax({
 		url: '../data.json',
@@ -42,6 +39,9 @@ function changeData() {
 	drawLegend();
 	marker.setPosition(new google.maps.LatLng(coordLat, coordLng));
 }
+
+changeData();
+setInterval(changeData, 2000);
 
 function initMap() {
 	map = new google.maps.Map(document.getElementById('map'), {

@@ -5,29 +5,21 @@ let coordLat = 0;
 let coordLng = 0;
 let data;
 
-changeData();
-setInterval(changeData, 2000);
-
-function changeData() {
-	getData();
-	coordLat = data.live['2'];
-	coordLng = data.live['3'];
-	let latlng = new google.maps.LatLng(coordLat, coordLng);
-	marker.setPosition(latlng);
-}
-
 function getData() {
 	$.ajax({
 		url: 'data.json',
 		async: false,
 		success: function(tempData) {
 			data = tempData;
+			coordLat = data.live['2'];
+			coordLng = data.live['3'];
 		},
 		dataType: 'json'
 	});
 }
 
 function initMap() {
+	getData();
 	mapProp = {
 		center: new google.maps.LatLng(coordLat, coordLng),
 		zoom: 16,
@@ -65,4 +57,12 @@ function initMap() {
 		icon: 'images/test.png'
 	});
 	marker.setMap(map);
+	setInterval(changeData, 2000);
+	map.panTo(new google.maps.LatLng(coordLat, coordLng));
+}
+
+function changeData() {
+	getData();
+	let latlng = new google.maps.LatLng(coordLat, coordLng);
+	marker.setPosition(latlng);
 }
