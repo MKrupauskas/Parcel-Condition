@@ -98,7 +98,7 @@ function changeData() {
 	];
 
 	drawLegend();
-
+	console.log('end of chageData');
 	// let latlng = new google.maps.LatLng(coordLat, coordLng);
 	// marker.setPosition(latlng);
 }
