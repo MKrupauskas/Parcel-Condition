@@ -4,6 +4,7 @@ let legend = document.getElementById('legend');
 const title = document.getElementById('title');
 let coordLat, coordLng, temperature, humidity, battery;
 let infoWindowContent, legendInfoContent;
+let latlng;
 
 function getData() {
 	$.ajax({
@@ -76,6 +77,14 @@ function initMap() {
 
 	changeData();
 	setInterval(changeData, 2000);
+
+	function changeMap() {
+		getData();
+		let latlng = new google.maps.LatLng(coordLat, coordLng);
+		marker.setPosition(latlng);
+	}
+
+	setInterval(changeMap, 2000);
 }
 
 function changeData() {
@@ -98,9 +107,6 @@ function changeData() {
 	];
 
 	drawLegend();
-	console.log('end of chageData');
-	// let latlng = new google.maps.LatLng(coordLat, coordLng);
-	// marker.setPosition(latlng);
 }
 
 function drawLegend() {
