@@ -20,13 +20,23 @@ div h3 {
 	background: #FB926D;
 }
 
-#title {
+#header {
 	width: 100%;
 	height: 8%;
 	background: #FB926D;
+  padding: 0;
 }
 
 #map, #canvasDiv {
 	width: 100%;
 	height: 45%;
+}
+
+#map {
+  margin
+}
+
+#canvasDiv {
+	padding-bottom: 0;
+	margin-bottom: 0;
 }
