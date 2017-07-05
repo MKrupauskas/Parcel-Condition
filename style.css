@@ -8,7 +8,6 @@ html, body {
 h1, h3, h2, a {
 	font-family: 'Overpass', sans-serif;
 	padding-left: 0.2em;
-	padding-top: 0.2em;
 	color: #fff;
 	text-decoration: none;
 }
@@ -20,11 +19,12 @@ div h3 {
 	background: #FB926D;
 }
 
-#header {
+h1 {
 	width: 100%;
 	height: 8%;
 	background: #FB926D;
-  padding: 0;
+  padding-top: 0.5em;
+	margin: 0;
 }
 
 #map, #canvasDiv {
@@ -33,7 +33,8 @@ div h3 {
 }
 
 #map {
-  margin
+  margin-top: 0;
+	padding-top: 0;
 }
 
 #canvasDiv {
