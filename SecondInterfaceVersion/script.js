@@ -1,3 +1,5 @@
+'use strict';
+
 let map,
     data;
 let legend = document.getElementById('legend');
