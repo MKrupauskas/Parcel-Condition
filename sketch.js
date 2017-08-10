@@ -1,3 +1,5 @@
+'use strict';
+
 let block,
     width,
     height,
