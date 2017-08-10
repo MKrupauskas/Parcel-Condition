@@ -74,8 +74,7 @@ function draw() {
     textSize(50);
     textAlign(CENTER);
     fill(255);
-    temp = temperature + '°C';
-    text(temp, distance + sizeX / 2, distance + sizeY / 5 * 3);
+    text(temperature + '°C', distance + sizeX / 2, distance + sizeY / 5 * 3);
     textSize(25);
     text('Temperature', distance + sizeX / 2, distance + sizeY / 5 * 4);
     image(
@@ -87,8 +86,8 @@ function draw() {
     );
 
     textSize(50);
-    hum = Math.round(humidity) + '%';
-    text(hum, distance * 2 + sizeX * 1.5, distance + sizeY / 5 * 3);
+
+    text(Math.round(humidity) + '%', distance * 2 + sizeX * 1.5, distance + sizeY / 5 * 3);
     textSize(25);
     text('Humidity', distance * 2 + sizeX * 1.5, distance + sizeY / 5 * 4);
     image(
